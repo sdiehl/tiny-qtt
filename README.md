@@ -27,33 +27,13 @@ true
 > :q
 ```
 
-## What's inside
-
-- `mult.rs` -- the `{0, 1, w}` semiring and usage vectors (add, scale, fits)
-- `syntax.rs` / `value.rs` -- surface, core, and semantic (NbE) terms
-- `eval.rs` -- evaluation, normalization by evaluation, and conversion
-- `elab.rs` -- bidirectional elaboration that counts usage against budgets
-- `parser.lalrpop` / `lexer.rs` -- the surface grammar
-- a REPL plus `check` for `.qtt` files, with `ariadne` diagnostics
-
-The repl commands:
-
-| command     | effect                                 |
-| ----------- | -------------------------------------- |
-| `:t <expr>` | infer the type of `<expr>`             |
-| `:l <file>` | load definitions from a file           |
-| `:?`        | show help                              |
-| `:q`        | quit                                   |
-| `<decl>`    | run a `def` / `eval` / `check` decl    |
-| `<expr>`    | evaluate to normal form and print type |
-
 ```bash
 cargo run --example demo
 cargo run -- check tests/cases/04_tensor_swap.qtt
 cargo run -- check tests/cases/21_err_use_linear_twice.qtt
 ```
 
-The `tests/cases` directory holds twenty-eight worked scenarios (each with a committed snapshot): linear and erased identities, currying between `*` and `->`, additive sharing through `&`, resource-polymorphic `let`, and the rejections (using a linear value twice, dropping it, using an erased one at runtime).
+The `tests/cases` directory has worked scenarios (each with a committed snapshot): linear and erased identities, currying between `*` and `->`, additive sharing through `&`, resource-polymorphic `let`, and the rejections (using a linear value twice, dropping it, using an erased one at runtime).
 
 ## License
 
