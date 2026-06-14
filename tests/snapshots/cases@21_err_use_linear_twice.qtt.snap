@@ -1,0 +1,6 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/21_err_use_linear_twice.qtt
+---
+ERROR: variable `x` has multiplicity 1 but is used w (at depth 0)

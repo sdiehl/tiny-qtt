@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/01_linear_id.qtt
+---
+def id
+  : (0 A : Type) -> (1 x : A) -> A
+  := \A => \x => x
+eval
+  = true
+  : Bool

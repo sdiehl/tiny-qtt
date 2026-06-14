@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/04_tensor_swap.qtt
+---
+def swap
+  : (0 A : Type) -> (0 B : Type) -> (1 p : A * B) -> B * A
+  := \A => \B => \p => let (x, y) = p in (y, x)
+eval
+  = (false, true)
+  : Bool * Bool

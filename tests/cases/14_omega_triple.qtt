@@ -1,0 +1,2 @@
+def triple : (0 A : Type) -> (w x : A) -> A * A * A := \A x => (x, (x, x))
+eval triple Bool true

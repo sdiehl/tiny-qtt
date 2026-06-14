@@ -1,0 +1,19 @@
+-- A resource-polymorphic let: the bound variable's multiplicity is whatever
+-- the body demands, and the definition's own usage is scaled to match.
+def square_x : (w x : Bool) -> Bool * Bool
+  := \x => let y : Bool := x in (y, y)
+
+-- Eta for & : projecting both sides into a fresh with-pair costs one use of p
+-- because only one projection is ever forced.
+def eta_with : (0 A : Type) -> (0 B : Type) -> (1 p : A & B) -> A & B
+  := \A B p => <fst p, snd p>
+
+-- check confirms a term inhabits a type without binding a name.
+check \b => not (not b) : (1 b : Bool) -> Bool
+
+eval not true
+eval comp Bool Bool Bool not not true
+eval swap Bool Bool (true, false)
+eval uncurry Bool Bool (Bool * Bool) (pair Bool Bool) (true, false)
+eval dup Bool false
+eval fork Bool true

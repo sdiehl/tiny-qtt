@@ -1,0 +1,2 @@
+-- An erased variable cannot be used at runtime.
+def f : (0 x : Bool) -> Bool := \x => x

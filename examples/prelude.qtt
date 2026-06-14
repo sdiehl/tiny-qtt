@@ -1,0 +1,45 @@
+-- A small library of resource-aware combinators. Every binder carries a
+-- multiplicity: 0 erases it, 1 forces exactly one use, w allows any number.
+
+def id : (0 A : Type) -> (1 x : A) -> A
+  := \A x => x
+
+-- To discard an argument you must declare it erased (multiplicity 0).
+def const : (0 A : Type) -> (0 B : Type) -> (1 x : A) -> (0 y : B) -> A
+  := \A B x y => x
+
+-- Linear composition: g and f are each used once, and so is x.
+def comp :
+    (0 A : Type) -> (0 B : Type) -> (0 C : Type) ->
+    (1 g : (1 y : B) -> C) -> (1 f : (1 x : A) -> B) -> (1 x : A) -> C
+  := \A B C g f x => g (f x)
+
+-- Tensor (A * B) hands you both components at once.
+def pair : (0 A : Type) -> (0 B : Type) -> (1 a : A) -> (1 b : B) -> A * B
+  := \A B a b => (a, b)
+
+def swap : (0 A : Type) -> (0 B : Type) -> (1 p : A * B) -> B * A
+  := \A B p => let (x, y) = p in (y, x)
+
+-- Currying witnesses the linear adjunction between * and ->.
+def curry :
+    (0 A : Type) -> (0 B : Type) -> (0 C : Type) ->
+    (1 f : (1 p : A * B) -> C) -> (1 a : A) -> (1 b : B) -> C
+  := \A B C f a b => f (a, b)
+
+def uncurry :
+    (0 A : Type) -> (0 B : Type) -> (0 C : Type) ->
+    (1 f : (1 a : A) -> (1 b : B) -> C) -> (1 p : A * B) -> C
+  := \A B C f p => let (a, b) = p in f a b
+
+-- With (A & B) lets you project either side, but never both, so a single
+-- linear resource can feed both projections.
+def fork : (0 A : Type) -> (1 x : A) -> A & A
+  := \A x => <x, x>
+
+-- Duplication into a tensor genuinely needs the resource many times.
+def dup : (0 A : Type) -> (w x : A) -> A * A
+  := \A x => (x, x)
+
+def not : (1 b : Bool) -> Bool
+  := \b => if b then false else true

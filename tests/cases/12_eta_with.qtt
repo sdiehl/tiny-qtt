@@ -1,0 +1,4 @@
+-- Reprojecting both sides of a with-pair costs only one use of p.
+def eta : (0 A : Type) -> (0 B : Type) -> (1 p : A & B) -> A & B
+  := \A B p => <fst p, snd p>
+eval eta Bool Bool <true, false>

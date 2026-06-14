@@ -1,0 +1,141 @@
+use crate::syntax::{Decl, Raw, ReplInput, Name, name};
+use crate::mult::Mult;
+use crate::lexer::{LexicalError, Token};
+
+grammar;
+
+pub Module: Vec<Decl> = {
+    <ds:Decl*> => ds,
+};
+
+pub Repl: ReplInput = {
+    <d:Decl> => ReplInput::Decl(d),
+    <t:Term> => ReplInput::Term(t),
+};
+
+Decl: Decl = {
+    "def" <n:"IDENT"> ":" <ty:Term> ":=" <body:Term> => Decl::Def(name(&n), ty, body),
+    "eval" <t:Term> => Decl::Eval(t),
+    "check" <t:Term> ":" <ty:Term> => Decl::Check(t, ty),
+};
+
+pub Term: Raw = {
+    Lambda,
+};
+
+Lambda: Raw = {
+    Arrow,
+    "\\" <ns:Binders> "=>" <b:Term> => Raw::Lam(ns, Box::new(b)),
+    "fun" <ns:Binders> "=>" <b:Term> => Raw::Lam(ns, Box::new(b)),
+    "if" <c:Term> "then" <t:Term> "else" <e:Term> => {
+        Raw::If(Box::new(c), Box::new(t), Box::new(e))
+    },
+    "let" "(" <x:"IDENT"> "," <y:"IDENT"> ")" "=" <t:Term> "in" <b:Term> => {
+        Raw::LetPair(name(&x), name(&y), Box::new(t), Box::new(b))
+    },
+    "let" <x:"IDENT"> ":" <ty:Term> ":=" <v:Arrow> "in" <b:Term> => {
+        Raw::Let(name(&x), Box::new(ty), Box::new(v), Box::new(b))
+    },
+};
+
+Binders: Vec<Name> = {
+    <s:"IDENT"> => vec![name(&s)],
+    <s:"IDENT"> <rest:Binders> => {
+        let mut v = vec![name(&s)];
+        v.extend(rest);
+        v
+    },
+};
+
+Arrow: Raw = {
+    With,
+    <l:With> "->" <r:Arrow> => Raw::Pi(Mult::Many, name("_"), Box::new(l), Box::new(r)),
+    "(" <x:"IDENT"> ":" <ty:Term> ")" "->" <b:Arrow> => {
+        Raw::Pi(Mult::Many, name(&x), Box::new(ty), Box::new(b))
+    },
+    "(" <q:MultTok> <x:"IDENT"> ":" <ty:Term> ")" "->" <b:Arrow> => {
+        Raw::Pi(q, name(&x), Box::new(ty), Box::new(b))
+    },
+    "(" <x:"IDENT"> ":" <ty:Term> ")" "*" <b:Arrow> => {
+        Raw::Tensor(Mult::One, name(&x), Box::new(ty), Box::new(b))
+    },
+    "(" <q:MultTok> <x:"IDENT"> ":" <ty:Term> ")" "*" <b:Arrow> => {
+        Raw::Tensor(q, name(&x), Box::new(ty), Box::new(b))
+    },
+};
+
+MultTok: Mult = {
+    <n:"NUM"> => if n == 0 { Mult::Zero } else { Mult::One },
+    "w" => Mult::Many,
+};
+
+With: Raw = {
+    Prod,
+    <l:Prod> "&" <r:With> => Raw::With(Box::new(l), Box::new(r)),
+};
+
+Prod: Raw = {
+    App,
+    <l:App> "*" <r:Prod> => Raw::Tensor(Mult::One, name("_"), Box::new(l), Box::new(r)),
+};
+
+App: Raw = {
+    Prefix,
+    <f:App> <x:Atom> => Raw::App(Box::new(f), Box::new(x)),
+};
+
+Prefix: Raw = {
+    Atom,
+    "fst" <t:Atom> => Raw::Fst(Box::new(t)),
+    "snd" <t:Atom> => Raw::Snd(Box::new(t)),
+};
+
+Atom: Raw = {
+    <s:"IDENT"> => Raw::Var(name(&s)),
+    "Type" => Raw::U,
+    "Bool" => Raw::Bool,
+    "true" => Raw::True,
+    "false" => Raw::False,
+    "(" <t:Term> ")" => t,
+    "(" <a:Term> "," <b:Term> ")" => Raw::Pair(Box::new(a), Box::new(b)),
+    "<" <a:Term> "," <b:Term> ">" => Raw::WPair(Box::new(a), Box::new(b)),
+};
+
+extern {
+    type Location = usize;
+    type Error = LexicalError;
+
+    enum Token {
+        "def" => Token::Def,
+        "eval" => Token::Eval,
+        "check" => Token::Check,
+        "let" => Token::Let,
+        "in" => Token::In,
+        "fun" => Token::Fun,
+        "if" => Token::If,
+        "then" => Token::Then,
+        "else" => Token::Else,
+        "Type" => Token::Type,
+        "Bool" => Token::Bool,
+        "true" => Token::True,
+        "false" => Token::False,
+        "fst" => Token::Fst,
+        "snd" => Token::Snd,
+        "w" => Token::Omega,
+        "(" => Token::LParen,
+        ")" => Token::RParen,
+        "<" => Token::LAngle,
+        ">" => Token::RAngle,
+        "," => Token::Comma,
+        ":" => Token::Colon,
+        ":=" => Token::ColonEq,
+        "->" => Token::Arrow,
+        "=>" => Token::FatArrow,
+        "=" => Token::Eq,
+        "*" => Token::Star,
+        "&" => Token::Amp,
+        "\\" => Token::Backslash,
+        "IDENT" => Token::Ident(<String>),
+        "NUM" => Token::Number(<u64>),
+    }
+}

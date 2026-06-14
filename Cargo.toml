@@ -1,0 +1,47 @@
+[package]
+name = "tiny-qtt"
+version = "0.1.0"
+authors = ["Stephen Diehl <stephen.m.diehl@gmail.com>"]
+categories = ["algorithms"]
+edition = "2021"
+keywords = ["typechecker"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/sdiehl/tiny-qtt"
+description = "Implementing Quantitative Type Theory for fun and profit"
+
+[dependencies]
+ariadne = "0.6"
+clap = { version = "4.6.1", features = ["derive"] }
+lalrpop-util = { version = "0.23.1", features = ["lexer", "unicode"] }
+logos = "0.16"
+pretty = "0.12"
+rustyline = "18"
+thiserror = "2.0"
+
+[build-dependencies]
+lalrpop = { version = "0.23.1", features = ["lexer", "unicode"] }
+
+[dev-dependencies]
+insta = { version = "1.41", features = ["glob"] }
+
+[[bin]]
+name = "tiny-qtt"
+path = "src/main.rs"
+
+[[example]]
+name = "demo"
+path = "examples/demo.rs"
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_debug_implementations = "warn"
+unreachable_pub = "warn"
+rust_2018_idioms = { level = "warn", priority = -1 }
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+cargo = { level = "warn", priority = -1 }
+multiple_crate_versions = "allow"

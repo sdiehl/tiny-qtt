@@ -1,0 +1,3 @@
+-- Duplicating into a tensor needs the resource many times (multiplicity w).
+def dup : (0 A : Type) -> (w x : A) -> A * A := \A x => (x, x)
+eval dup Bool true

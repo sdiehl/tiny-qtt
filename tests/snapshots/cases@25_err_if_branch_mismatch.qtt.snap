@@ -1,0 +1,6 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/25_err_if_branch_mismatch.qtt
+---
+ERROR: branches of `if` consume different resources (at depth 4)

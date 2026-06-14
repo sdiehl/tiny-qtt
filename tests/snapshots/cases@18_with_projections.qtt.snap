@@ -1,0 +1,14 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/18_with_projections.qtt
+---
+def p
+  : Bool & Bool
+  := <true, false>
+eval
+  = true
+  : Bool
+eval
+  = false
+  : Bool

@@ -1,0 +1,2 @@
+-- A linear variable cannot be duplicated into a tensor.
+def f : (1 x : Bool) -> Bool * Bool := \x => (x, x)

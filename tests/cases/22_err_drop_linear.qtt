@@ -1,0 +1,2 @@
+-- A linear variable cannot be dropped; y goes unused.
+def f : (1 x : Bool) -> (1 y : Bool) -> Bool := \x y => x

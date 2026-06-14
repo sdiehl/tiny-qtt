@@ -1,0 +1,6 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/22_err_drop_linear.qtt
+---
+ERROR: variable `y` has multiplicity 1 but is used 0 (at depth 1)

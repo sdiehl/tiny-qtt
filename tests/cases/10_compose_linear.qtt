@@ -1,0 +1,6 @@
+def not : (1 b : Bool) -> Bool := \b => if b then false else true
+def comp :
+    (0 A : Type) -> (0 B : Type) -> (0 C : Type) ->
+    (1 g : (1 y : B) -> C) -> (1 f : (1 x : A) -> B) -> (1 x : A) -> C
+  := \A B C g f x => g (f x)
+eval comp Bool Bool Bool not not true

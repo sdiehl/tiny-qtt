@@ -1,0 +1,6 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/26_err_feed_linear_to_omega.qtt
+---
+ERROR: variable `b` has multiplicity 1 but is used w (at depth 1)

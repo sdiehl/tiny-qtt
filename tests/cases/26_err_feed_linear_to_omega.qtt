@@ -1,0 +1,3 @@
+-- A linear resource cannot be passed to a function that uses it many times.
+def dup : (0 A : Type) -> (w x : A) -> A * A := \A x => (x, x)
+def f : (1 b : Bool) -> Bool * Bool := \b => dup Bool b

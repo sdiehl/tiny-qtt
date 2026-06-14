@@ -1,0 +1,8 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/28_err_type_mismatch.qtt
+---
+ERROR: type mismatch
+  expected: Bool * Bool
+  inferred: Bool (at depth 0)

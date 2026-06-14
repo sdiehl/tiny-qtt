@@ -1,0 +1,14 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/08_uncurry.qtt
+---
+def pair
+  : (0 A : Type) -> (0 B : Type) -> (1 a : A) -> (1 b : B) -> A * B
+  := \A => \B => \a => \b => (a, b)
+def uncurry
+  : (0 A : Type) -> (0 B : Type) -> (0 C : Type) -> (1 f : (1 a : A) -> (1 b : B) -> C) -> (1 p : A * B) -> C
+  := \A => \B => \C => \f => \p => let (a, b) = p in f a b
+eval
+  = (true, false)
+  : Bool * Bool

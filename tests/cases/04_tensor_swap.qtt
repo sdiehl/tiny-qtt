@@ -1,0 +1,4 @@
+-- A linear tensor hands you both components; let-pair splits them.
+def swap : (0 A : Type) -> (0 B : Type) -> (1 p : A * B) -> B * A
+  := \A B p => let (x, y) = p in (y, x)
+eval swap Bool Bool (true, false)

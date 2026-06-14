@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/03_unrestricted_dup.qtt
+---
+def dup
+  : (0 A : Type) -> (x : A) -> A * A
+  := \A => \x => (x, x)
+eval
+  = (true, true)
+  : Bool * Bool

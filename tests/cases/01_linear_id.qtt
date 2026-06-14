@@ -1,0 +1,4 @@
+-- The identity function uses its argument exactly once (multiplicity 1)
+-- and erases the type parameter (multiplicity 0).
+def id : (0 A : Type) -> (1 x : A) -> A := \A x => x
+eval id Bool true

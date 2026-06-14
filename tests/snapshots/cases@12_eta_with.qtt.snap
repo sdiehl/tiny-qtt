@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/12_eta_with.qtt
+---
+def eta
+  : (0 A : Type) -> (0 B : Type) -> (1 p : A & B) -> A & B
+  := \A => \B => \p => <fst p, snd p>
+eval
+  = <true, false>
+  : Bool & Bool

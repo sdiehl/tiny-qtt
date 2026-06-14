@@ -1,0 +1,3 @@
+def not : (1 b : Bool) -> Bool := \b => if b then false else true
+eval not true
+eval not false

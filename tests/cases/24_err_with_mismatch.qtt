@@ -1,0 +1,2 @@
+-- The components of a with-pair must consume identical resources.
+def f : (1 x : Bool) -> Bool & Bool := \x => <x, true>

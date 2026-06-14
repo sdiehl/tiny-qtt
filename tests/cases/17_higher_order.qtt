@@ -1,0 +1,5 @@
+-- f is used twice, so it is bound at multiplicity w; x stays linear.
+def twice : (0 A : Type) -> (w f : (1 x : A) -> A) -> (1 x : A) -> A
+  := \A f x => f (f x)
+def not : (1 b : Bool) -> Bool := \b => if b then false else true
+eval twice Bool not true

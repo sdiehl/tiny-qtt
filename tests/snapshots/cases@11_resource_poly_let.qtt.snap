@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/11_resource_poly_let.qtt
+---
+def f
+  : (x : Bool) -> Bool * Bool
+  := \x => let y : Bool := x in (y, y)
+eval
+  = (true, true)
+  : Bool * Bool

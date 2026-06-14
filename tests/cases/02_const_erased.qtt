@@ -1,0 +1,4 @@
+-- To discard an argument, declare it erased. Here y has multiplicity 0.
+def const : (0 A : Type) -> (0 B : Type) -> (1 x : A) -> (0 y : B) -> A
+  := \A B x y => x
+eval const Bool Bool true false

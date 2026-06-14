@@ -1,0 +1,5 @@
+-- let is resource-polymorphic: the bound variable's multiplicity is read off
+-- from how the body uses it, and the definition's usage is scaled to match.
+-- Using y twice forces x to be unrestricted.
+def f : (w x : Bool) -> Bool * Bool := \x => let y : Bool := x in (y, y)
+eval f true

@@ -1,0 +1,2 @@
+def id : (0 A : Type) -> (1 x : A) -> A := \A x => x
+eval id Bool

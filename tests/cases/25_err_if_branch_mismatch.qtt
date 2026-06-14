@@ -1,0 +1,3 @@
+-- The branches of an if must consume identical resources.
+def f : (0 A : Type) -> (1 x : A) -> (1 y : A) -> (1 c : Bool) -> A
+  := \A x y c => if c then x else y

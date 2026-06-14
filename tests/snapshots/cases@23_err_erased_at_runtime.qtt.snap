@@ -1,0 +1,6 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/23_err_erased_at_runtime.qtt
+---
+ERROR: variable `x` has multiplicity 0 but is used 1 (at depth 0)

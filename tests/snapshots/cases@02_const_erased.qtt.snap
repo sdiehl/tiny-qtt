@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/02_const_erased.qtt
+---
+def const
+  : (0 A : Type) -> (0 B : Type) -> (1 x : A) -> (0 y : B) -> A
+  := \A => \B => \x => \y => x
+eval
+  = true
+  : Bool

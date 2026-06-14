@@ -1,0 +1,5 @@
+-- if is additive: both branches must consume the same resources, and only
+-- one runs, so a linear x may appear in both.
+def choose : (0 A : Type) -> (1 c : Bool) -> (1 x : A) -> A
+  := \A c x => if c then x else x
+eval choose Bool true false

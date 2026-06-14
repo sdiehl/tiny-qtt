@@ -1,0 +1,4 @@
+-- Because only one side of a with-pair is ever forced, a single linear
+-- resource may feed both components.
+def fork : (0 A : Type) -> (1 x : A) -> A & A := \A x => <x, x>
+eval fork Bool true

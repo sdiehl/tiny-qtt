@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/05_with_projection.qtt
+---
+def pick
+  : (0 A : Type) -> (0 B : Type) -> (1 p : A & B) -> A
+  := \A => \B => \p => fst p
+eval
+  = true
+  : Bool

@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/14_omega_triple.qtt
+---
+def triple
+  : (0 A : Type) -> (x : A) -> A * A * A
+  := \A => \x => (x, (x, x))
+eval
+  = (true, (true, true))
+  : Bool * Bool * Bool

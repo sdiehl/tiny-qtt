@@ -1,0 +1,3 @@
+def p : Bool & Bool := <true, false>
+eval fst p
+eval snd p

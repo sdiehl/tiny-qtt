@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/20_function_value.qtt
+---
+def id
+  : (0 A : Type) -> (1 x : A) -> A
+  := \A => \x => x
+eval
+  = \x => x
+  : (1 x : Bool) -> Bool

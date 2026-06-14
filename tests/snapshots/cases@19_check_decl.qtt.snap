@@ -1,0 +1,14 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/19_check_decl.qtt
+---
+def not
+  : (1 b : Bool) -> Bool
+  := \b => if b then false else true
+check ok
+  : Bool
+  ~ true
+check ok
+  : (1 b : Bool) -> Bool
+  ~ \b => not (not b)

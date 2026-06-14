@@ -1,0 +1,14 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/17_higher_order.qtt
+---
+def twice
+  : (0 A : Type) -> (f : (1 x : A) -> A) -> (1 x : A) -> A
+  := \A => \f => \x => f (f x)
+def not
+  : (1 b : Bool) -> Bool
+  := \b => if b then false else true
+eval
+  = true
+  : Bool

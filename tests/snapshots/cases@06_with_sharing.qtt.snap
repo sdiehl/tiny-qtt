@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/06_with_sharing.qtt
+---
+def fork
+  : (0 A : Type) -> (1 x : A) -> A & A
+  := \A => \x => <x, x>
+eval
+  = <true, true>
+  : Bool & Bool

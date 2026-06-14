@@ -1,0 +1,11 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/15_if_shares_branches.qtt
+---
+def choose
+  : (0 A : Type) -> (1 c : Bool) -> (1 x : A) -> A
+  := \A => \c => \x => if c then x else x
+eval
+  = false
+  : Bool

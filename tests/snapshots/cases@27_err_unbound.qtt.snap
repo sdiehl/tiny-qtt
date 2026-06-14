@@ -1,0 +1,6 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/27_err_unbound.qtt
+---
+ERROR: unbound variable: nope (at depth 0)

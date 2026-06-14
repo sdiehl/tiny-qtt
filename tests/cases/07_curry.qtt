@@ -1,0 +1,6 @@
+def id : (0 A : Type) -> (1 x : A) -> A := \A x => x
+def curry :
+    (0 A : Type) -> (0 B : Type) -> (0 C : Type) ->
+    (1 f : (1 p : A * B) -> C) -> (1 a : A) -> (1 b : B) -> C
+  := \A B C f a b => f (a, b)
+eval curry Bool Bool (Bool * Bool) (id (Bool * Bool)) true false

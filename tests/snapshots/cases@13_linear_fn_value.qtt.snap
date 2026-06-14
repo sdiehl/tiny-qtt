@@ -1,0 +1,14 @@
+---
+source: tests/snapshots.rs
+expression: out
+input_file: tests/cases/13_linear_fn_value.qtt
+---
+def not
+  : (1 b : Bool) -> Bool
+  := \b => if b then false else true
+def apply
+  : (0 A : Type) -> (0 B : Type) -> (1 f : (1 x : A) -> B) -> (1 a : A) -> B
+  := \A => \B => \f => \a => f a
+eval
+  = false
+  : Bool
