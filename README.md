@@ -1,8 +1,16 @@
 # tiny-qtt
 
-My first attempt at a basic Rust implementation of Quantitative Type Theory, following McBride's [I Got Plenty o' Nuttin'](https://personal.cis.strath.ac.uk/conor.mcbride/PlentyO-CR.pdf) and Atkey's [Syntax and Semantics of Quantitative Type Theory](https://bentnib.org/quantitative-type-theory.pdf).
+A small Rust type checker for Quantitative Type Theory, written mostly while I was on holiday after a few too many glasses of wine. So don't take this too seriously, but itis fun.
 
-QTT is cool because every binder is graded by a multiplicity drawn from the zero-one-many semiring: `0` erases a variable (it exists only for typing), `1` demands it be used exactly once, and `w` allows any number of uses. The type checker tracks a usage vector and checks it against these budgets, so linearity, erasure, and the contrast between multiplicative `*` and additive `&` pairs all fall out of one resource discipline.
+Based on McBride's [I Got Plenty o' Nuttin'](https://personal.cis.strath.ac.uk/conor.mcbride/PlentyO-CR.pdf) and Atkey's [Syntax and Semantics of Quantitative Type Theory](https://bentnib.org/quantitative-type-theory.pdf).
+
+The neat trick is that every binder carries a multiplicity, a little budget drawn from the zero-one-many semiring:
+
+- `0` means erased. The variable is real to the type checker and invisible at runtime, perfect for the phantom type arguments you never wanted to pay for.
+- `1` means linear. Use it exactly once. Not zero times, not twice, once, like a good bottle.
+- `w` means whatever. Use it as much as you like.
+
+The checker drags a usage vector around and reconciles it against those budgets. The pleasant surprise is how much falls out for free: linearity, erasure, and the difference between multiplicative pairs `*` (you get both) and additive pairs `&` (you pick one) are all just the same accounting done honestly.
 
 ```bash
 cargo build
@@ -27,14 +35,14 @@ true
 > :q
 ```
 
+Note that `dup` needs `w` on its argument. Ask for `1` there and the checker will, quite correctly, refuse to let you have your value and copy it too.
+
 ```bash
 cargo run --example demo
 cargo run -- check tests/cases/04_tensor_swap.qtt
 cargo run -- check tests/cases/21_err_use_linear_twice.qtt
 ```
 
-The `tests/cases` directory has worked scenarios (each with a committed snapshot): linear and erased identities, currying between `*` and `->`, additive sharing through `&`, resource-polymorphic `let`, and the rejections (using a linear value twice, dropping it, using an erased one at runtime).
-
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+MIT. See [LICENSE](LICENSE). Do as you please with it.
