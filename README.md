@@ -1,6 +1,6 @@
 # tiny-qtt
 
-A small Rust type checker for Quantitative Type Theory, written mostly while I was on holiday after a few too many glasses of wine. So don't take this too seriously, but itis fun.
+A small Rust type checker for Quantitative Type Theory, written mostly while I was on holiday after a few too many glasses of wine. So this is just for fun and lolz.
 
 Based on McBride's [I Got Plenty o' Nuttin'](https://personal.cis.strath.ac.uk/conor.mcbride/PlentyO-CR.pdf) and Atkey's [Syntax and Semantics of Quantitative Type Theory](https://bentnib.org/quantitative-type-theory.pdf).
 
@@ -45,4 +45,4 @@ cargo run -- check tests/cases/21_err_use_linear_twice.qtt
 
 ## License
 
-MIT. See [LICENSE](LICENSE). Do as you please with it.
+MIT. See [LICENSE](LICENSE).
